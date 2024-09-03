@@ -1,0 +1,23 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<nav class="navbar navbar-default">
+
+		<a href="http://ieslluissimarro.org/" class="navbar-brand">Simarro</a>
+
+		<nav class="nav nav-pills flex-column flex-sm-row">
+			<a class="nav-link active" href="#">Home</a>
+			<a class="nav-link" href="/alumno.do">Alumnos</a>
+			<a class="nav-link" href="https://aules.edu.gva.es/fp/course/view.php?id=112252">DWES</a>
+		</nav>
+ 
+ 
+		<ul class="nav navbar-nav navbar-right">
+			<li><a class="nav-link" href="/login.do">Login</a></li>
+		</ul>
+
+	</nav>
+
+	<div class="container">
+		<H1>Cabecera</H1>
+		Cuerpo de la página
+	</div>
