@@ -5,6 +5,7 @@ import org.alumno.jose.jose_primer_app_spring_boot.srv.excepciones.AlumnoDuplica
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -41,5 +42,20 @@ public class AlumnoService {
     
     public List<Alumno> getAlumnos() {
         return alumnos;
+    }
+    public void borrarAlumno(String dni) throws Exception {
+        Iterator<Alumno> iterator = alumnos.iterator();
+        boolean encontrado = false;
+        while (iterator.hasNext()) {
+            Alumno alumno = iterator.next();
+            if (alumno.getDni().equals(dni)) {
+                iterator.remove();  // Eliminar el alumno
+                encontrado = true;
+                break;
+            }
+        }
+        if (!encontrado) {
+            throw new Exception("Alumno con DNI " + dni + " no encontrado.");
+        }
     }
 }

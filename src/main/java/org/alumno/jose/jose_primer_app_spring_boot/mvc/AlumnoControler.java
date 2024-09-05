@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 
@@ -58,6 +59,17 @@ public class AlumnoControler {
         }
         model.addAttribute("errores",errores);
         return "add-alumno";
+    }
+    // Método que borra un alumno y redirige al listado
+    @RequestMapping(value = "/del-alumno", method = RequestMethod.GET)
+    public String delAlumno(@RequestParam("dni") String dni, ModelMap model) {
+        try {
+            alumnoService.borrarAlumno(dni);  // Borrar el alumno por DNI
+            model.clear();  // Limpiar el modelo
+        } catch (Exception e) {
+            model.addAttribute("errores", e.getMessage());  // Añadir error si ocurre
+        }
+        return "redirect:/list-alumno";  // Redirigir al listado de alumnos
     }
     
     
