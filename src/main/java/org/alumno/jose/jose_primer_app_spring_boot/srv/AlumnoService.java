@@ -4,13 +4,16 @@ import org.alumno.jose.jose_primer_app_spring_boot.model.Alumno;
 import org.alumno.jose.jose_primer_app_spring_boot.srv.excepciones.AlumnoDuplicadoException;
 import org.springframework.stereotype.Service;
 
+import jakarta.validation.Valid;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlumnoService {
-  
+    
     List<Alumno> alumnos = new ArrayList<>();
     public AlumnoService(){
         alumnos.add(new Alumno("12345678A", "Juan Pérez", 20, "DAM", 2));
@@ -25,6 +28,32 @@ public class AlumnoService {
         return alumnos;
     }
 
+ // Método para encontrar un alumno por su DNI
+ public Alumno findAlumnoByDni(String dni) {
+    Optional<Alumno> alumnoEncontrado = alumnos.stream()
+            .filter(alumno -> alumno.getDni().equals(dni))
+            .findFirst();
+
+    if (alumnoEncontrado.isPresent()) {
+        return alumnoEncontrado.get();
+    } else {
+        throw new IllegalArgumentException("Alumno con DNI " + dni + " no encontrado.");
+    }
+}
+
+// Método para modificar un alumno existente
+public void modificarAlumno(Alumno alumnoModificado) {
+    Alumno alumnoExistente = findAlumnoByDni(alumnoModificado.getDni());
+
+    // Modificar los datos del alumno encontrado
+    alumnoExistente.setNombre(alumnoModificado.getNombre());
+    alumnoExistente.setEdad(alumnoModificado.getEdad());
+    alumnoExistente.setCiclo(alumnoModificado.getCiclo());
+    alumnoExistente.setCurso(alumnoModificado.getCurso());
+
+    // Aquí no necesitas guardar en la lista, ya que `alumnoExistente` está referenciado en la lista
+}
+
     public void addAlumno(Alumno alumno) throws AlumnoDuplicadoException {
         // Verificar si el alumno ya existe en la lista
         for (Alumno a : alumnos) {
@@ -37,9 +66,6 @@ public class AlumnoService {
         alumnos.add(alumno);
     }
 
-    
-
-    
     public List<Alumno> getAlumnos() {
         return alumnos;
     }
@@ -58,4 +84,14 @@ public class AlumnoService {
             throw new Exception("Alumno con DNI " + dni + " no encontrado.");
         }
     }
+   // Método para actualizar un alumno existente
+   public void updateAlumno(Alumno alumno) {
+    for (int i = 0; i < alumnos.size(); i++) {
+        if (alumnos.get(i).getDni().equals(alumno.getDni())) {
+            alumnos.set(i, alumno); // Actualizar el alumno encontrado
+            return;
+        }
+    }
+    throw new IllegalArgumentException("Alumno no encontrado con DNI: " + alumno.getDni());
+}
 }

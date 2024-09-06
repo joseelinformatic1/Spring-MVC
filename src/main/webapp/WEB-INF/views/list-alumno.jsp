@@ -24,7 +24,9 @@
                   <td>&nbsp;${alumno.getEdad()}&nbsp;</td>
                   <td>&nbsp;${alumno.getCiclo()}&nbsp;</td>
                   <td>&nbsp;${alumno.getCurso()}&nbsp;</td>
+                  <td>&nbsp;<a href="update-alumno?dni=${alumno.getDni()}" class="btn btn-info">Modificar</a>&nbsp;</td>
                   <td>&nbsp;<a href="del-alumno?dni=${alumno.getDni()}" class="btn btn-danger">Borrar</a>&nbsp;</td>
+                  
                 </tr>
             </c:forEach>
            
